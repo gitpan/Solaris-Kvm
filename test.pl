@@ -15,13 +15,12 @@ ok(1); # If we made it this far, we're ok.
 # Insert your test code below, the Test module is use()ed here so read
 # its man page ( perldoc Test ) for help writing this test script.
 
-$x = new Solaris::Kvm();
-print $x, "\n";
-#foreach(keys %{$x}) {
-#   print "$_ => $x->{$_}\n";
-#}
-printf "maxusers: %d %d %d %d %d\n",
-   $x->maxusers, $x->size('maxusers'),
-   $x->type('maxusers'), $x->bind('maxusers'),
-   $x->visibility('maxusers');
-print "STT_COMMON: ", STT_COMMON, "\n";
+ok($handle = new Solaris::Kvm());
+
+$adbout = qx(
+/bin/adb -k <<EOF
+maxusers/D
+EOF
+);
+( $maxusers ) = ( $adbout =~ /maxusers:\s+(\d+)$/m );
+ok($maxusers == $handle->maxusers);

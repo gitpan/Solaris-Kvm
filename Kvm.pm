@@ -42,7 +42,7 @@ our @EXPORT = qw(
 	STV_HIDDEN
 	STV_PROTECTED
 );
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 bootstrap Solaris::Kvm $VERSION;
 
